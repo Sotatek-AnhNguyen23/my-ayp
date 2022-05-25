@@ -17,32 +17,6 @@ export const store = configureStore({
 
 sagaMiddleware.run(rootSaga);
 
-// const configureAppStore = () => {
-//     const reduxSagaMonitorOptions = {};
-//     const sagaMiddleware = createSagaMiddleware(reduxSagaMonitorOptions);
-
-//     // Create the store with saga middleware
-//     const middleware: any = [];
-//     middleware.push(sagaMiddleware);
-
-//     const store = configureStore({
-//         reducer: { homeStore: homeSlice.reducer },
-//         middleware: (getDefaultMiddleware) => [
-//             ...getDefaultMiddleware({
-//                 thunk: false,
-//             }),
-//             ...middleware,
-//         ],
-//         devTools: process.env.NODE_ENV !== "production",
-//     });
-
-//     sagaMiddleware.run(rootSaga);
-
-//     return store;
-// };
-
-// export default configureAppStore;
-
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
 export type AppThunk<ReturnType = void> = ThunkAction<
