@@ -7,6 +7,9 @@ First, run the development server:
 1, npm run ci
 2, npm run dev & yarn dev
 
+- To run test:  1,npm run test:watch  
+                2,use npm run test:cov
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 III, Next component overview:
