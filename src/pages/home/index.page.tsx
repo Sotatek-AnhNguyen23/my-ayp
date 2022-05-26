@@ -9,12 +9,14 @@ const Home = () => {
   const { employees } = useAppSelector((state) => state.homeStore);
   const [currentPage, setCurrentPage] = useState<number>(0);
 
+  const onCallbackSuccess = (page: number) => {
+    setCurrentPage(page);
+  };
   const onPageChange = (page: number) => {
     dispatch({
       type: homeActions.GET_EMPLOYEE,
-      payload: { page },
+      payload: { page, onCallbackSuccess },
     });
-    setCurrentPage(page);
   };
 
   useEffect(() => {
@@ -26,7 +28,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="m-auto h-1/2 w-1/2">
+    <div className="m-auto h-1/2 w-1/2" data-testid="homeComponent">
       <div>
         <TableCustom employees={employees} />
         <div>

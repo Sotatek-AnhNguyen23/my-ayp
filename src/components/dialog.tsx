@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { homeActions } from "../handles/home/utils/data/homeActions";
 import {
   UpdateEmployeeInput,
-  UpdateEmpPayload
+  UpdateEmpPayload,
 } from "../handles/home/utils/home.types";
 import { useAppDispatch } from "../hooks/redux/hooks";
 import { Employee } from "../utils/constance";
@@ -51,6 +51,7 @@ const Dialog = (props: Props) => {
 
   return (
     <div
+      data-testid="updateDialog"
       className={cx(
         "absolute bg-slate-300 bg-opacity-90 w-screen h-screen top-0 left-0 shadow-black p-4",
         { ["hidden"]: !visible }

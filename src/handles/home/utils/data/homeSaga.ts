@@ -8,10 +8,11 @@ function* getEmployee(
   action: PayloadAction<GetEmployeePayload>
 ): Generator<any> {
   try {
-    const { page } = action.payload;
+    const { page, onCallbackSuccess } = action.payload;
     if (page < 0) return;
     if (page >= dataMock.length / perPage) return;
     const dataFilter = dataMock.slice(page * perPage, (page + 1) * perPage);
+    onCallbackSuccess && onCallbackSuccess(page);
     yield put(setEmployee(dataFilter));
   } catch (error) {}
 }

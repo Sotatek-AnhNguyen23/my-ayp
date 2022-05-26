@@ -6,6 +6,7 @@ export interface UpdateEmployeeInput {
 
 export interface GetEmployeePayload {
   page: number;
+  onCallbackSuccess?: any;
 }
 
 export interface UpdateEmpPayload {
