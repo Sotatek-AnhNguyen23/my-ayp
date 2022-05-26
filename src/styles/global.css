@@ -1,0 +1,15 @@
+
+.button{
+    width: 20px;
+    height: 30px;
+    background-color: blue;
+}
+
+.bg-important{
+    opacity: 100%!;
+}
+
+input:checked ~ .dot {
+    transform: translateX(100%);
+    background-color: #48bb78;
+  }

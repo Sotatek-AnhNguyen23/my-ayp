@@ -2,16 +2,26 @@ import { useAppDispatch, useAppSelector } from "../../hooks/redux/hooks";
 import { TableCustom } from "./components/table";
 import { useEffect, useState } from "react";
 import { homeActions } from "../../handles/home/utils/data/homeActions";
-import { Pagination } from "./components/pagination";
+import { Pagination } from "../../components/pagination";
+import { GetEmployeePayload } from "../../handles/home/utils/home.types";
 const Home = () => {
   const dispatch = useAppDispatch();
   const { employees } = useAppSelector((state) => state.homeStore);
   const [currentPage, setCurrentPage] = useState<number>(0);
 
-  useEffect(() => {
+  const onPageChange = (page: number) => {
     dispatch({
       type: homeActions.GET_EMPLOYEE,
-      payload: { page: currentPage },
+      payload: { page },
+    });
+    setCurrentPage(page);
+  };
+
+  useEffect(() => {
+    const payload: GetEmployeePayload = { page: currentPage };
+    dispatch({
+      type: homeActions.GET_EMPLOYEE,
+      payload,
     });
   }, []);
 
@@ -20,10 +30,7 @@ const Home = () => {
       <div>
         <TableCustom employees={employees} />
         <div>
-          <Pagination
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
+          <Pagination currentPage={currentPage} onPageChange={onPageChange} />
         </div>
       </div>
     </div>

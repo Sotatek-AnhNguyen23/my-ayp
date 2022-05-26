@@ -1,20 +1,14 @@
-import { useEffect, useState } from "react";
-import { Dialog } from "../../../components/dialog";
-import ModalCustom from "../../../components/modal.custom";
-import { homeActions } from "../../../handles/home/utils/data/homeActions";
-import { useAppDispatch, useAppSelector } from "../../../hooks/redux/hooks";
-import styles from "../../../styles/home.module.scss";
+import cx from "classnames";
+import { useState } from "react";
+import Dialog from "../../../components/dialog";
 import { Employee } from "../../../utils/constance";
-import { Pagination } from "./pagination";
-
 interface Props {
   employees: Employee[];
 }
 
 export const TableCustom = (props: Props) => {
-  const dispatch = useAppDispatch();
   const [visible, setVisible] = useState<boolean>(false);
-
+  const [updateEmployee, setUpdateEmployee] = useState<Employee>();
   const { employees } = props;
 
   const renderHeader = (
@@ -42,7 +36,7 @@ export const TableCustom = (props: Props) => {
   return (
     <div className="">
       <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 ">
           {renderHeader}
           <tbody>
             {employees.map((e) => (
@@ -55,12 +49,25 @@ export const TableCustom = (props: Props) => {
                 </th>
                 <td className="px-6 py-4 "> {e.name}</td>
                 <td className="px-6 py-4"> {e.email}</td>
-                <td className="px-6 py-4"> {e.isActive ? "True" : "False"}</td>
+                <td
+                  className={cx(
+                    "px-6 py-4",
+                    e.isActive ? "text-blue-500" : "text-red-400"
+                  )}
+                >
+                  {e.isActive ? "True" : "False"}
+                </td>
 
                 <td className="px-6 py-4 text-right">
                   <button
-                    onClick={() => setVisible(true)}
-                    className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                    onClick={() => {
+                      setUpdateEmployee(e);
+                      setVisible(true);
+                    }}
+                    className={cx("font-medium", {
+                      ["text-blue-400"]: e.isActive,
+                    })}
+                    disabled={!e.isActive}
                   >
                     Update
                   </button>
@@ -70,7 +77,11 @@ export const TableCustom = (props: Props) => {
           </tbody>
         </table>
       </div>
-      <Dialog setVisible={setVisible} visible={visible} />
+      <Dialog
+        setVisible={setVisible}
+        visible={visible}
+        employee={updateEmployee}
+      />
     </div>
   );
 };

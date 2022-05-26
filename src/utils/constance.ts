@@ -1,4 +1,3 @@
-import * as employees from "./employees.json";
 export interface Employee {
   id: number;
   name: string;

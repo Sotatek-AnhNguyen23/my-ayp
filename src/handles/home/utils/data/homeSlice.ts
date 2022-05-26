@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { dataMock, Employee, perPage } from "../../../../utils/constance";
+import { dataMock, Employee } from "../../../../utils/constance";
 
 export interface HomeState {
   employees: Employee[];
@@ -21,7 +21,18 @@ export const homeSlice = createSlice({
     setTotalEmployee: (state, action: PayloadAction<Number>) => {
       state.totalEmployee = action.payload;
     },
+    updateEmployeeById: (state, action: PayloadAction<any>) => {
+      const data = action.payload;
+      const index = state.employees.findIndex((item) => item.id === data.eId);
+      state.employees[index] = {
+        id: data.eId,
+        name: data.params.name,
+        email: data.params.email,
+        isActive: data.params.isActive,
+      };
+    },
   },
 });
 
-export const { setEmployee, setTotalEmployee } = homeSlice.actions;
+export const { setEmployee, setTotalEmployee, updateEmployeeById } =
+  homeSlice.actions;
